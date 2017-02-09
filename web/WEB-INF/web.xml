@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>Servlet.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/loginServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UpdatePassServlet</servlet-name>
+        <servlet-class>Servlet.UpdatePassServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdatePassServlet</servlet-name>
+        <url-pattern>/updatePassServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddFacServlet</servlet-name>
+        <servlet-class>Servlet.AddFacServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddFacServlet</servlet-name>
+        <url-pattern>/addFacServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PersonalServlet</servlet-name>
+        <servlet-class>Servlet.PersonalServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PersonalServlet</servlet-name>
+        <url-pattern>/personalServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>BorrowServlet</servlet-name>
+        <servlet-class>Servlet.BorrowServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BorrowServlet</servlet-name>
+        <url-pattern>/borrowServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UpdateFacServlet</servlet-name>
+        <servlet-class>Servlet.UpdateFacServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateFacServlet</servlet-name>
+        <url-pattern>/updateFacServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteServlet</servlet-name>
+        <servlet-class>Servlet.DeleteServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteServlet</servlet-name>
+        <url-pattern>/deleteServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>JsonServlet</servlet-name>
+        <servlet-class>Servlet.JsonServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>JsonServlet</servlet-name>
+        <url-pattern>/jsonServlet</url-pattern>
+    </servlet-mapping>
+</web-app>
