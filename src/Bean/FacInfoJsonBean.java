@@ -3,11 +3,11 @@ package Bean;
 /**
  * Created by Administrator on 2017/2/9.
  */
-public class JsonFacInfoBean {
+public class FacInfoJsonBean {
     private String LabNo,FacNo,FacName,FacModel,Information;
     private int Stock,Used;
 
-    public JsonFacInfoBean(String labNo, String facNo, String facName, String facModel, String information, int stock, int used) {
+    public FacInfoJsonBean(String labNo, String facNo, String facName, String facModel, String information, int stock, int used) {
         LabNo = labNo;
         FacNo = facNo;
         FacName = facName;

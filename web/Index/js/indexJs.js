@@ -94,14 +94,6 @@ var tableToExcel = (function(){
     }
 })();
 
-/*刷新Btn Ajax替代 实现异步刷新div
-$(function(){
-    $("#refreshBtn").click(function(){
-        //window.location.reload();
-        refresh_2();
-    });
-});*/
-
 //以两位数形式显示 配合显示时间使用
 function fix(num, length) {
     return ('' + num).length < length ? ((new Array(length + 1)).join('0') + num).slice(-length) : '' + num;

@@ -192,8 +192,25 @@ function refresh_1() {
 }
 
 function refresh_2() {
-    $.post("/jsonServlet",{No:"2"},function (data) {
-        alert(data);
+    $.post('/jsonServlet', {
+        No : "2"
+    }, function(data) {
+        var jsonObj = eval( "(" + data + ")" );
+        var content ="";
+        $.each(jsonObj, function (index,obj) {
+            //alert(index + obj.FacName);
+            var num = obj.Stock - obj.Used;
+            content += "<tr>" +
+                "<td>" + obj.LabNo + "</td>" +
+                "<td>" + obj.FacNo + "</td>" +
+                "<td>" + obj.FacName + "</td>" +
+                "<td>" + obj.FacModel + "</td>" +
+                "<td>" + num + "</td>" +
+                "<td><a href=\"#\" data-container=\"body\" data-toggle=\"popover\" data-placement=\"right\" data-content=\"" + obj.Information + "\">详细信息</a></td>"+
+                "<td><a href=\"#\" name=\"borrowBtn\" data-toggle=\"modal\" data-target=\"#borrowModal\">借用</a></td>" +
+                "</tr>" ;
+        });
+        $("#firstTbody").html(content);
     });
 }
 

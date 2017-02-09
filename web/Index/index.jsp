@@ -117,7 +117,7 @@
                         <th>借用</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="firstTbody">
                     <%
                         String sqlStateInfo = "SELECT *FROM FACINFO";
                         ResultSet rsStateInfo = new SelectSql(sqlStateInfo).selectInfo();

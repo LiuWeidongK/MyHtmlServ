@@ -1,9 +1,11 @@
 package Servlet;
 
-import Bean.JsonFacInfoBean;
+import Bean.LoginBean;
 import Demo.JsonStr;
 import Util.Json;
-import Util.SelectSql;
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,8 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 /**
  * Created by Administrator on 2017/2/9.
@@ -24,9 +24,12 @@ public class JsonServlet extends HttpServlet {
         response.setContentType("application/text; charset=utf-8");
         PrintWriter out = response.getWriter();
 
-        int no = Integer.parseInt(request.getParameter("No"));
+        int No = Integer.parseInt(request.getParameter("No"));
 
-        out.write(JsonStr.getJson(no));
+        JsonStr jsonStr = new JsonStr(No);
+
+        String json = jsonStr.jsonV();
+        out.write(json);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
