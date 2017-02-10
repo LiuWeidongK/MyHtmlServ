@@ -7,6 +7,8 @@ Messenger.options = {
     theme: 'air'
 };
 
+var facIdd;     //全局变量 设备编号
+
 //修改密码ajax
 $(document).ready(function () {
     $("#uPass").click(function () {
@@ -43,15 +45,20 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-   $("#refreshBtn1").click(function () {
-       refresh_1();
-   });
-   $("#refreshBtn2").click(function () {
+    $(document).ready(function(){
+        refresh_1();
         refresh_2();
-   });
-   $("#refreshBtn3").click(function () {
         refresh_3();
-   });
+    });
+    $("#refreshBtn1").click(function () {
+       refresh_1();
+    });
+    $("#refreshBtn2").click(function () {
+        refresh_2();
+    });
+    $("#refreshBtn3").click(function () {
+        refresh_3();
+    });
 });
 
 //添加设备ajax
@@ -148,11 +155,7 @@ $(document).ready(function () {
 });
 
 //删除设备ajax
-function deleteFac() {
-    var facIdd;
-    $("[name='deleteBtn']").click(function () {
-        facIdd = $(this).parents("tr").find("td").eq(2).text().trim();  //删除设备编号
-    });
+$(document).ready(function () {
     $("#sureDelete").click(function () {
         $.ajax({
             type: "POST",
@@ -162,6 +165,7 @@ function deleteFac() {
             success: function(data) {
                 if(data=="success"){
                     Messenger().post({message: '删除成功', type: 'success', showCloseButton: true});
+                    $("#deleteModal").modal('hide');
                     refresh_2();
                 }
                 else if(data=="fail")
@@ -170,6 +174,13 @@ function deleteFac() {
                     Messenger().post({message: '未知错误', type: 'error', showCloseButton: true});
             }
         });
+    });
+});
+
+//获取设备编号
+function deleteFac() {
+    $("[name='deleteBtn']").click(function () {
+        facIdd = $(this).parents("tr").find("td").eq(2).text().trim();  //删除设备编号
     });
 }
 
@@ -191,12 +202,6 @@ function secondTable() {
        $("#upStock").val($(this).parents("tr").find("td").eq(5).text().trim());
    });
 }
-
-$(document).ready(function(){
-    refresh_1();
-    refresh_2();
-    refresh_3();
-});
 
 //刷新table
 function refresh_1() {
