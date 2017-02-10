@@ -27,16 +27,18 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="../Common/Js/messenger.min.js"></script>   <!-- Alert Message -->
     <script src="../Common/Js/messenger-theme-future.js"></script>
-    <script src="js/ajaxJs.js"></script>    <!-- Own Code -->
+
     <script src="js/indexJs.js"></script>
     <script src="js/jquery.tablesorter.js"></script>  <!-- Table Sort -->
+    <script src="js/ajaxJs.js"></script>    <!-- Own Code -->
 
     <!--
         问题概述：
             1.批量删除暂未实现 表单验证暂未实现 刷新问题需要解决 2017/2/9  2:50
-            2.排序bug 需要点击两次(but not important)
-            3.详细信息弹框会出现不能消失的问题
-            4.刷新按钮应使用Ajax 以实现异步局部刷新 而不是整体刷新
+            拼接html代码的时候 详细信息不弹出 排序函数无法实现 暂未解决
+            //2.排序bug 需要点击两次(but not important)
+            //3.详细信息弹框会出现不能消失的问题
+            //4.刷新按钮应使用Ajax 以实现异步局部刷新 而不是整体刷新
     -->
 </head>
 
@@ -100,7 +102,7 @@
                     <button type="button" class="btn btn-default" onclick="outToExcel('StateInfo')">
                         <span class="glyphicon glyphicon-floppy-save"></span> 导出到Excel
                     </button>
-                    <button type="button" class="btn btn-default" id="refreshBtn">
+                    <button type="button" class="btn btn-default" id="refreshBtn1">
                         <span class="glyphicon glyphicon-refresh"></span>
                     </button>
                 </div>
@@ -117,48 +119,7 @@
                         <th>借用</th>
                     </tr>
                     </thead>
-                    <tbody id="firstTbody">
-                    <%
-                        String sqlStateInfo = "SELECT *FROM FACINFO";
-                        ResultSet rsStateInfo = new SelectSql(sqlStateInfo).selectInfo();
-                        while (rsStateInfo.next()) {
-                            int num = rsStateInfo.getInt(5)-rsStateInfo.getInt(6);
-                            if(num == 0)
-                                continue;
-                    %>
-                    <tr>
-                        <td>
-                            <%
-                                out.print(CheckNull.check(rsStateInfo.getString(1)));
-                            %>
-                        </td>
-                        <td>
-                            <%
-                                out.print(CheckNull.check(rsStateInfo.getString(2)));
-                            %>
-                        </td>
-                        <td>
-                            <%
-                                out.print(CheckNull.check(rsStateInfo.getString(3)));
-                            %>
-                        </td>
-                        <td>
-                            <%
-                                out.print(CheckNull.check(rsStateInfo.getString(4)));
-                            %>
-                        </td>
-                        <td>
-                            <%
-                                out.print(num);
-                            %>
-                        </td>
-                        <td><a href="#" id="myPopover" data-container="body" data-toggle="popover" data-placement="right" data-content="<%=CheckNull.check(rsStateInfo.getString(7))%>">详细信息</a></td>
-                        <td><a href="#" name="borrowBtn" data-toggle="modal" data-target="#borrowModal">借用</a></td>
-                    </tr>
-                    <%
-                        }
-                    %>
-                    </tbody>
+                    <tbody id="firstTbody"></tbody>
                 </table>
             </div>
         </div>
@@ -178,6 +139,9 @@
                     <button type="button" class="btn btn-default" data-toggle="modal" data-target="#deleteAllModal">
                         <span class="glyphicon glyphicon-minus"></span> 批量删除
                     </button>
+                    <button type="button" class="btn btn-default" id="refreshBtn2">
+                        <span class="glyphicon glyphicon-refresh"></span>
+                    </button>
                 </div>
 
                 <table class="table table-hover" id="ManageInfo">
@@ -188,54 +152,12 @@
                         <th class="pointer">设备编号 <span class="glyphicon glyphicon-sort-by-order"></span></th>
                         <th class="pointer">设备名称 <span class="glyphicon glyphicon-sort-by-alphabet"></span></th>
                         <th>设备型号</th>
-                        <th class="pointer">库存总量</th>
+                        <th>库存总量</th>
                         <th>修改</th>
                         <th>删除</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <%
-                        try {
-                            rsStateInfo.beforeFirst();
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                        while (rsStateInfo.next()) {
-                    %>
-                    <tr>
-                        <td><input type="checkbox" name="followBox"></td>
-                        <td>
-                            <%
-                                out.print(rsStateInfo.getString(1));
-                            %>
-                        </td>
-                        <td>
-                            <%
-                                out.print(rsStateInfo.getString(2));
-                            %>
-                        </td>
-                        <td>
-                            <%
-                                out.print(rsStateInfo.getString(3));
-                            %>
-                        </td>
-                        <td>
-                            <%
-                                out.print(rsStateInfo.getString(4));
-                            %>
-                        </td>
-                        <td>
-                            <%
-                                out.print(rsStateInfo.getInt(5));
-                            %>
-                        </td>
-                        <td><a href="#" name="updateBtn" data-toggle="modal" data-target="#updateModal">修改</a></td>
-                        <td><a href="#" name="deleteBtn" data-toggle="modal" data-target="#deleteModal">删除</a></td>
-                    </tr>
-                    <%
-                        }
-                    %>
-                    </tbody>
+                    <tbody id="secondTbody"></tbody>
                 </table>
             </div>
         </div>
@@ -247,6 +169,11 @@
                 <!-- Search -->
                 <div class="col-xs-4">
                     <input type="text" class="form-control" id="searchId_3" placeholder="学号">
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default" id="refreshBtn3">
+                        <span class="glyphicon glyphicon-refresh"></span> Refresh
+                    </button>
                 </div>
                 <table class="table table-hover" id="BorrowInfo">
                     <thead>
@@ -261,55 +188,7 @@
                         <th>借用目的</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <%
-                        String sqlBorrowInfo = "SELECT PERSONAL.USERNAME,NAME,COLLEGE,SDATE,FACINFO.FACNAME,TELEPHONE,USELONG,AIM FROM BORROW,PERSONAL,FACINFO WHERE BORROW.USERNAME = PERSONAL.USERNAME AND FACINFO.FACNO = BORROW.FACNO";
-                        SelectSql selectSql_2 = new SelectSql(sqlBorrowInfo);
-                        ResultSet rsBorrowInfo = selectSql_2.selectInfo();
-                        while (rsBorrowInfo.next()) {
-                    %>
-                    <tr>
-                        <td>
-                            <%
-                                out.print(rsBorrowInfo.getString(1));
-                            %>
-                        </td>
-                        <td>
-                            <%
-                                out.print(CheckNull.check(rsBorrowInfo.getString(2)));
-                            %>
-                        </td>
-                        <td>
-                            <%
-                                out.print(CheckNull.check(rsBorrowInfo.getString(3)));
-                            %>
-                        </td>
-                        <td>
-                            <%
-                                out.print(rsBorrowInfo.getString(4));
-                            %>
-                        </td>
-                        <td>
-                            <%
-                                out.print(rsBorrowInfo.getString(5));
-                            %>
-                        </td>
-                        <td>
-                            <%
-                                out.print(CheckNull.check(rsBorrowInfo.getString(6)));
-                            %>
-                        </td>
-                        <td>
-                            <%
-                                out.print(rsBorrowInfo.getInt(7) + " 天");
-                            %>
-                        </td>
-                        <td><a href="#" id="myPopover" data-container="body" data-toggle="popover" data-placement="right" data-content="<%=CheckNull.check(rsBorrowInfo.getString(8))%>">查看更多</a></td>
-                    </tr>
-                    <%
-                        }
-                    %>
-                    </tbody>
+                    <tbody id="thirdTbody"></tbody>
                 </table>
             </div>
         </div>

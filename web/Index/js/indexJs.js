@@ -2,7 +2,7 @@
  * Created by Administrator on 2017/1/26.
  */
 //详细信息弹出框
-$(function (){
+function popover(){
     $("[data-toggle='popover']").popover({
         trigger:'manual'
     }).on("mouseenter", function(){
@@ -19,7 +19,7 @@ $(function (){
             }
         }, 100);
     });
-});
+}
 
 var idTmr;
 function getExplorer(){  	//判断浏览器

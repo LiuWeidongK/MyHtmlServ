@@ -21,8 +21,6 @@ public class DeleteServlet extends HttpServlet {
 
         String FacId = request.getParameter("facid");
 
-        System.out.print(FacId);
-
         Delete delete = new Delete(FacId);
 
         if(delete.doIt())
