@@ -2,9 +2,11 @@ package Demo;
 
 import Bean.BorrowInfoJsonBean;
 import Bean.FacInfoJsonBean;
+import Bean.PersonalBean;
 import Util.Json;
 import Util.SelectSql;
 
+import javax.servlet.http.HttpSession;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,9 +17,11 @@ import java.util.List;
  */
 public class JsonStr {
     private int No;
+    private String username;
 
-    public JsonStr(int no) {
+    public JsonStr(int no, String username) {
         No = no;
+        this.username = username;
     }
 
     public String jsonV() {
@@ -45,6 +49,19 @@ public class JsonStr {
                     list.add(borrowInfoJsonBean);
                 }
                 return Json.ObjectToJson(list);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return "";
+            }
+        } else if(No==4) {
+            String sql = "SELECT * FROM PERSONAL WHERE USERNAME = '" + username + "'";
+            ResultSet rs = new SelectSql(sql).selectInfo();
+            try {
+                PersonalBean personalBean = null;
+                if(rs.next()) {
+                    personalBean = new PersonalBean(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4));
+                }
+                return Json.ObjectToJson(personalBean);
             } catch (SQLException e) {
                 e.printStackTrace();
                 return "";

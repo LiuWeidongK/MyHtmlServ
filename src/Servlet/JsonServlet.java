@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -24,9 +25,11 @@ public class JsonServlet extends HttpServlet {
         response.setContentType("application/text; charset=utf-8");
         PrintWriter out = response.getWriter();
 
+        HttpSession session = request.getSession();
+        String username = (String)session.getAttribute("username");
         int No = Integer.parseInt(request.getParameter("No"));
 
-        JsonStr jsonStr = new JsonStr(No);
+        JsonStr jsonStr = new JsonStr(No,username);
 
         String json = jsonStr.jsonV();
         out.write(json);

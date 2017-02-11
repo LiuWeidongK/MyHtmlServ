@@ -15,27 +15,28 @@
     <title>实验室器材管理系统</title>
 
     <!-- CssCodeLink Start -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">    <!-- Bootstrap Code-->
+    <link href="css/bootstrap.min.css" rel="stylesheet">    <!-- Bootstrap Code -->
     <link href="css/dashboard.css" rel="stylesheet">
     <link href="../Common/Css/messenger.css" rel="stylesheet">   <!-- Alert Message -->
     <link href="../Common/Css/messenger-theme-future.css" rel="stylesheet">
     <link href="../Common/Css/messenger-theme-air.css" rel="stylesheet">
-    <link href="css/indexCss.css" rel="stylesheet"> <!-- Own Code-->
+    <link href="../Common/Css/easyform.css" rel="stylesheet">   <!-- Check Form -->
+    <link href="css/indexCss.css" rel="stylesheet">     <!-- Own Code -->
 
     <!-- JsCodeLink Start -->
-    <script src="js/jquery-3.0.0.js"></script>	<!-- Jquery -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery-3.0.0.js"></script>	    <!-- Jquery -->
+    <script src="js/bootstrap.min.js"></script>     <!-- Bootstrap Code-->
     <script src="../Common/Js/messenger.min.js"></script>   <!-- Alert Message -->
     <script src="../Common/Js/messenger-theme-future.js"></script>
-
-    <script src="js/indexJs.js"></script>
-    <script src="js/jquery.tablesorter.js"></script>  <!-- Table Sort -->
-    <script src="js/ajaxJs.js"></script>    <!-- Own Code -->
+    <script src="../Common/Js/easyform.js"></script>    <!-- Check Form -->
+    <script src="js/jquery.tablesorter.js"></script>    <!-- Table Sort -->
+    <script src="js/indexJs.js"></script>   <!-- Own Code -->
+    <script src="js/ajaxJs.js"></script>
 
     <!--
         问题概述：
-            1.批量删除暂未实现 表单验证暂未实现     预计11 12日解决
-            2.个人信息不全不予以借用未实现    预计11 12日解决
+            1.批量删除暂已实现 表单验证暂未实现     预计11 12日解决
+            //2.个人信息不全不予以借用未实现      预计11 12日解决
             3.若可使用本地缓存保存数据 可减少客户端与服务器的交互 暂不解决
             4.暂时刷新（刷新一次就需要向服务器发送一次请求）只有三种情况：页面加载、手动点击按钮、数据提交成功
                                                                                ——更新于 2017/2/11 1:32
@@ -87,7 +88,7 @@
                 <li class="active"><a href="#">设备状态信息</a></li>
                 <li><a href="#">设备信息管理</a></li>
                 <li><a href="#">设备借用信息</a></li>
-                <li><a href="#">个人信息 <span class="badge">1</span></a></li>
+                <li><a href="#">个人信息 <span class="badge" id="tips">1</span></a></li>
             </ul>
         </div>
 
@@ -199,20 +200,10 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" name="content" id="content4">
             <h1 class="sub-header">个人信息</h1>
                 <form id="personalForm" class="form-horizontal" role="form">
-                    <%
-                        String sqlPersonal = "SELECT * FROM PERSONAL WHERE USERNAME = '" + username + "'";
-                        SelectSql selectSql_3 = new SelectSql(sqlPersonal);
-                        ResultSet rsPersonal = selectSql_3.selectInfo();
-                        try {
-                            rsPersonal.next();
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                    %>
                     <div class="form-group">
                         <label for="collegeInput" class="col-sm-3 control-label">所属学院</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" id="collegeInput" name="collegeInput" value="<%=CheckNull.check(rsPersonal.getString(2)) %>"/>
+                            <input type="text" class="form-control" id="collegeInput" name="collegeInput" />
                         </div>
                     </div>
                     <div class="form-group">
@@ -224,13 +215,13 @@
                     <div class="form-group">
                         <label for="nameInput" class="col-sm-3 control-label">姓名</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" id="nameInput" name="nameInput" value="<%=CheckNull.check(rsPersonal.getString(3)) %>"/>
+                            <input type="text" class="form-control" id="nameInput" name="nameInput" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="telInput" class="col-sm-3 control-label">联系电话</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" id="telInput" name="telInput" value="<%=CheckNull.check(rsPersonal.getString(4)) %>"/>
+                            <input type="text" class="form-control" id="telInput" name="telInput" />
                         </div>
                     </div>
                     <div class="form-group">
@@ -307,14 +298,6 @@
                 <h4 class="modal-title">借用设备登记</h4>
             </div>
             <div class="modal-body">
-                <%
-                    try {
-                        rsPersonal.beforeFirst();
-                        rsPersonal.next();
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                %>
                 <form id="borrowForm" class="form-horizontal" role="form">
                     <div class="form-group">
                         <label for="StuNo" class="col-sm-3 control-label">学号</label>
@@ -325,19 +308,19 @@
                     <div class="form-group">
                         <label for="college" class="col-sm-3 control-label">所属学院</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="college" value="<%=CheckNull.check(rsPersonal.getString(2)) %>">
+                            <input type="text" class="form-control" id="college"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="StuName" class="col-sm-3 control-label">姓名</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="StuName" value="<%=CheckNull.check(rsPersonal.getString(3)) %>">
+                            <input type="text" class="form-control" id="StuName" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="Telenum" class="col-sm-3 control-label">联系电话</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="Telenum" value="<%=CheckNull.check(rsPersonal.getString(4)) %>">
+                            <input type="text" class="form-control" id="Telenum" />
                         </div>
                     </div>
                     <div class="form-group" style="display: none">
@@ -510,10 +493,10 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">Warning</h4>
             </div>
-            <div class="modal-body">确定要删除这%d条信息么?</div>
+            <div id="deleteAlert" class="modal-body"></div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-default">确定</button>
+                <button type="button" class="btn btn-default" id="sureDeleteAll" >确定</button>
             </div>
         </div>
     </div>

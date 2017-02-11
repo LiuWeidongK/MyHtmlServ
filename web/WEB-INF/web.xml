@@ -74,4 +74,22 @@
         <servlet-name>JsonServlet</servlet-name>
         <url-pattern>/jsonServlet</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CheckPersonInfoServlet</servlet-name>
+        <servlet-class>Servlet.CheckPersonInfoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CheckPersonInfoServlet</servlet-name>
+        <url-pattern>/checkPersonInfoServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteAllServlet</servlet-name>
+        <servlet-class>Servlet.DeleteAllServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteAllServlet</servlet-name>
+        <url-pattern>/deleteAllServlet</url-pattern>
+    </servlet-mapping>
 </web-app>

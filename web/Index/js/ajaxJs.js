@@ -45,11 +45,10 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    $(document).ready(function(){
-        refresh_1();
-        refresh_2();
-        refresh_3();
-    });
+    refresh_1();
+    refresh_2();
+    refresh_3();
+    refresh_4();
     $("#refreshBtn1").click(function () {
        refresh_1();
     });
@@ -97,7 +96,7 @@ $(document).ready(function () {
             success: function(data) {
                 if(data=="success") {
                     Messenger().post({message: '提交成功', type: 'success', showCloseButton: true});
-                    window.location.reload();
+                    refresh_4();
                 }
                 else if(data=="fail")
                     Messenger().post({message: '提交失败 请重试', type: 'error', showCloseButton: true});
@@ -107,6 +106,27 @@ $(document).ready(function () {
         });
     });
 });
+
+//判断个人信息
+function checkInfo() {
+    $("[name='borrowBtn']").click(function () {
+        $.ajax({
+            type: "POST",
+            url: "/checkPersonInfoServlet",
+            success: function(data) {
+                if(data=="success"){
+                    $("#borrowModal").modal('show');
+                }
+                else if(data=="fail") {
+                    Messenger().post({message: '请先补全个人信息 之后才能执行此操作', type: 'error', showCloseButton: true});
+                }
+                else {
+                    Messenger().post({message: '未知错误', type: 'error', showCloseButton: true});
+                }
+            }
+        });
+    });
+}
 
 //借用设备ajax
 $(document).ready(function () {
@@ -222,13 +242,14 @@ function refresh_1() {
                 "<td>" + obj.FacModel + "</td>" +
                 "<td>" + num + "</td>" +
                 "<td><a href=\"#\" data-container=\"body\" data-toggle=\"popover\" data-placement=\"right\" data-content=\"" + obj.Information + "\">详细信息</a></td>"+
-                "<td><a href=\"#\" name=\"borrowBtn\" data-toggle=\"modal\" data-target=\"#borrowModal\">借用</a></td>" +
+                "<td><a href=\"#\" name=\"borrowBtn\">借用</a></td>" +
                 "</tr>";
         });
         $("#firstTbody").html(content);
         $("#StateInfo").trigger("update");
         popover();
         firstTable();
+        checkInfo();
     });
 }
 
@@ -281,9 +302,59 @@ function refresh_3() {
     });
 }
 
+function refresh_4() {
+    $.post('/jsonServlet', {
+        No : "4"
+    }, function(data) {
+        var jsonObj = eval( "(" + data + ")" );
+        $("#collegeInput").val(checkNull(jsonObj.college));
+        $("#nameInput").val(checkNull(jsonObj.name));
+        $("#telInput").val(checkNull(jsonObj.telphone));
+
+        $("#college").val(checkNull(jsonObj.college));
+        $("#StuName").val(checkNull(jsonObj.name));
+        $("#Telenum").val(checkNull(jsonObj.telphone));
+    });
+}
+
 function checkNull(str) {
     if(typeof (str) == "undefined")
         return "";
     else return str;
 }
 
+$(document).ready(function () {
+   $("[data-target='#deleteAllModal']").click(function () {
+       var checkedNum = $("input[name='followBox']:checked").length;
+       if (checkedNum == 0) {
+           Messenger().post({message: '请至少选择一条信息', type: 'error', showCloseButton: true});
+       } else {
+           $("#deleteAlert").text("确定要删除这" + checkedNum + "条信息么?");
+
+           var checkedList = new Array();
+           $("input[name='followBox']:checked").each(function () {
+               checkedList.push($(this).parents("tr").find("td").eq(2).text().trim());
+           });
+
+           $("#sureDeleteAll").click(function () {
+               $.ajax({
+                   type: "POST",
+                   url: "/deleteAllServlet",
+                   dataType: "text",
+                   data: {facList: checkedList.toString()},
+                   success: function (data) {
+                       if (data == "success") {
+                           Messenger().post({message: '批量删除成功', type: 'success', showCloseButton: true});
+                           $("#deleteAllModal").modal('hide');
+                           refresh_2();
+                       }
+                       else if (data == "fail")
+                           Messenger().post({message: '删除失败 请重试', type: 'error', showCloseButton: true});
+                       else
+                           Messenger().post({message: '未知错误', type: 'error', showCloseButton: true});
+                   }
+               });
+           });
+       }
+   });
+});
