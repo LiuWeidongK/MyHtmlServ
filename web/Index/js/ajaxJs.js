@@ -388,8 +388,7 @@ $(document).ready(function () {
        if (checkedNum == 0) {
            Messenger().post({message: '请至少选择一条信息', type: 'error', showCloseButton: true});
        } else {
-           $("#deleteAlert").text("确定要删除这" + checkedNum + "条信息么?");
-
+           $("#deleteAlert").text("删除信息后会导致相应的借用记录也随之删除,数据不可恢复,你确定要删除这" + checkedNum + "条信息么?");
            var checkedList = new Array();
            $("input[name='followBox']:checked").each(function () {
                checkedList.push($(this).parents("tr").find("td").eq(2).text().trim());
