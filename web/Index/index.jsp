@@ -213,7 +213,7 @@
                     <div class="form-group">
                         <label for="idNo" class="col-sm-3 control-label">学号</label>
                         <div class="col-sm-4">
-                            <input class="form-control" id="idNo" type="text" placeholder="<%=username %>" disabled>
+                            <input class="form-control" id="idNo" type="text" value="<%=username %>" disabled>
                         </div>
                     </div>
                     <div class="form-group">
@@ -306,7 +306,7 @@
                     <div class="form-group">
                         <label for="StuNo" class="col-sm-3 control-label">学号</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="StuNo" placeholder="<%=username%>" disabled>
+                            <input type="text" class="form-control" id="StuNo" value="<%=username%>" disabled>
                         </div>
                     </div>
                     <div class="form-group">
@@ -342,7 +342,7 @@
                     <div class="form-group">
                         <label for="StartDate" class="col-sm-3 control-label">借用日期</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="StartDate" placeholder="<%=new SimpleDateFormat("yyyy-MM-dd").format(new Date())%>" disabled>
+                            <input type="text" class="form-control" id="StartDate" value="<%=new SimpleDateFormat("yyyy-MM-dd").format(new Date())%>" disabled>
                         </div>
                     </div>
                     <div class="form-group">
