@@ -12,8 +12,8 @@
     <link href="../Common/Css/messenger-theme-air.css" rel="stylesheet">
 
     <script type="text/javascript" src="js/jquery-3.0.0.js"></script>
-    <script src="../Common/Js/messenger.min.js"></script>   <!-- Alert Message -->
-    <script src="../Common/Js/messenger-theme-future.js"></script>
+    <script type="text/javascript" src="../Common/Js/messenger.min.js"></script>   <!-- Alert Message -->
+    <script type="text/javascript" src="../Common/Js/messenger-theme-future.js"></script>
     <script type="text/javascript" src="js/loginJs.js"></script>
 
     <!--
@@ -27,9 +27,9 @@
     <section id="content">
         <form id="loginForm">
             <h1>请登录</h1>
-                <input type="text" placeholder="Username" required="" id="username" name="username"/>
-                <input type="password" placeholder="Password" required="" id="password" name="password"/>
-                <button type="button" value="submit">登录</button>
+            <input type="text" placeholder="Username" required="" id="username" name="username"/>
+            <input type="password" placeholder="Password" required="" id="password" name="password"/>
+            <button type="button" value="submit">登录</button>
         </form>
         <div class="tips">
             <p>Tip:初始用户名和密码为校园卡上的工作证号或学号 进入系统后请立即修改密码</p>

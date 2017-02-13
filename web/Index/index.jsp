@@ -1,9 +1,5 @@
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="java.sql.ResultSet" %>
-<%@ page import="Util.SelectSql" %>
-<%@ page import="Util.CheckNull" %>
-<%@ page import="java.sql.SQLException" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,28 +16,33 @@
     <link href="../Common/Css/messenger.css" rel="stylesheet">   <!-- Alert Message -->
     <link href="../Common/Css/messenger-theme-future.css" rel="stylesheet">
     <link href="../Common/Css/messenger-theme-air.css" rel="stylesheet">
-    <link href="../Common/Css/easyform.css" rel="stylesheet">   <!-- Check Form -->
+    <link href="../Common/Css/bootstrapValidator.css" rel="stylesheet">   <!-- Check Form -->
     <link href="css/indexCss.css" rel="stylesheet">     <!-- Own Code -->
 
     <!-- JsCodeLink Start -->
-    <script src="js/jquery-3.0.0.js"></script>	    <!-- Jquery -->
-    <script src="js/bootstrap.min.js"></script>     <!-- Bootstrap Code-->
-    <script src="../Common/Js/messenger.min.js"></script>   <!-- Alert Message -->
-    <script src="../Common/Js/messenger-theme-future.js"></script>
-    <script src="../Common/Js/easyform.js"></script>    <!-- Check Form -->
-    <script src="js/jquery.tablesorter.js"></script>    <!-- Table Sort -->
-    <script src="js/indexJs.js"></script>   <!-- Own Code -->
-    <script src="js/ajaxJs.js"></script>
+    <script type="text/javascript" src="js/jquery-3.0.0.js"></script>	    <!-- Jquery -->
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>     <!-- Bootstrap Code-->
+    <script type="text/javascript" src="../Common/Js/messenger.min.js"></script>   <!-- Alert Message -->
+    <script type="text/javascript" src="../Common/Js/messenger-theme-future.js"></script>
+    <script type="text/javascript" src="../Common/Js/bootstrapValidator.js"></script>    <!-- Check Form -->
+    <script type="text/javascript" src="js/jquery.tablesorter.js"></script>    <!-- Table Sort -->
+    <script type="text/javascript" src="js/indexJs.js"></script>   <!-- Own Code -->
+    <script type="text/javascript" src="js/ajaxJs.js"></script>
+    <script type="text/javascript" src="../Common/Js/checkForm.js"></script>
 
     <!--
         问题概述：
-            1.批量删除暂已实现 表单验证暂未实现     预计11 12日解决
-            //2.个人信息不全不予以借用未实现      预计11 12日解决
-            3.若可使用本地缓存保存数据 可减少客户端与服务器的交互 暂不解决
-            4.暂时刷新（刷新一次就需要向服务器发送一次请求）只有三种情况：页面加载、手动点击按钮、数据提交成功
-                                                                               ——更新于 2017/2/11 1:32
-            //2.拼接html代码的时候 详细信息不弹出 排序函数无法实现 表格信息无法获取 已解决
-            //3.详细信息弹框会出现不能消失的问题
+            1.表单验证基本实现  数据长度暂未验证
+            2.重要数据传递时应进行加密处理
+            3.个人信息完善不显示提示
+            4.表单不能重置
+            --3.若可使用本地缓存保存数据 可减少客户端与服务器的交互 暂不解决
+            --4.暂时刷新（刷新一次就需要向服务器发送一次请求）只有四种情况：页面加载、手动点击按钮、数据提交成功、div切换
+                                                                               ——更新于 2017/2/13 20:37
+            //1.批量删除暂已实现
+            //2.个人信息不全不予以借用未实现
+            //3.拼接html代码的时候 详细信息不弹出 排序函数无法实现 表格信息无法获取 已解决
+            //4.详细信息弹框会出现不能消失的问题 未解决
     -->
 </head>
 
@@ -308,19 +309,19 @@
                     <div class="form-group">
                         <label for="college" class="col-sm-3 control-label">所属学院</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="college"/>
+                            <input type="text" class="form-control" id="college" readonly = "readonly"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="StuName" class="col-sm-3 control-label">姓名</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="StuName" />
+                            <input type="text" class="form-control" id="StuName" readonly = "readonly"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="Telenum" class="col-sm-3 control-label">联系电话</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="Telenum" />
+                            <input type="text" class="form-control" id="Telenum" readonly = "readonly"/>
                         </div>
                     </div>
                     <div class="form-group" style="display: none">
@@ -342,7 +343,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="UseDate" class="col-sm-3 control-label">借用时长</label>
+                        <label for="UseDate" class="col-sm-3 control-label">借用时长(天)</label>
                         <div class="col-sm-6">
                             <input type="text" class="form-control" id="UseDate" name="UseDate">
                         </div>
