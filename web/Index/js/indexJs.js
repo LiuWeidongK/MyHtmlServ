@@ -1,23 +1,24 @@
 /**
  * Created by Administrator on 2017/1/26.
+ * index.jsp主要Js代码
  */
 //详细信息弹出框
 function popover(){
     $("[data-toggle='popover']").popover({
         trigger:'manual'
-    }).on("mouseenter", function(){
+    }).on("mouseenter", function () {
         var _this = this;
         $(this).popover("show");
-        $(this).siblings(".popover").on("mouseleave", function(){
+        $(".popover").on("mouseleave", function () {
             $(_this).popover('hide');
         });
-    }).on("mouseleave", function(){
+    }).on("mouseleave", function () {
         var _this = this;
         setTimeout(function () {
             if (!$(".popover:hover").length) {
-                $(_this).popover("hide")
+                $(_this).popover("hide");
             }
-        }, 100);
+        }, 150);
     });
 }
 
@@ -216,9 +217,5 @@ $(document).ready(function(){
         $("ul#leftlist li:eq(2)").removeClass("active");
         refresh_4();
     });
-});
-
-$("#hideBox").click(function () {
-   $("#alertBox").hide();
 });
 

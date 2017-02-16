@@ -386,6 +386,7 @@ function checkNull(str) {
     else return str;
 }
 
+//批量删除
 $(document).ready(function () {
    $("[data-target='#deleteAllModal']").click(function () {
        var checkedNum = $("input[name='followBox']:checked").length;
@@ -420,5 +421,3 @@ $(document).ready(function () {
        }
    });
 });
-
-

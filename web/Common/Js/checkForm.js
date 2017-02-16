@@ -10,6 +10,7 @@ $(document).ready(function() {
             invalid: 'glyphicon glyphicon-remove',
             validating: 'glyphicon glyphicon-refresh'
         },
+        excluded: [':disabled'],
         fields: {
             newPass: {
                 validators: {
@@ -21,16 +22,19 @@ $(document).ready(function() {
                         message: '格式错误 密码只能包括字母和数字 长度为6-18个字符'
                     }
                 }
-            }
+            },
+            oldPass: {},
+            newPassAgain: {}
         }
     });
-    $('#addModal').bootstrapValidator({
+    $('#addFacForm').bootstrapValidator({
         message: 'This value is not valid',
         feedbackIcons: {
             valid: 'glyphicon glyphicon-ok',
             invalid: 'glyphicon glyphicon-remove',
             validating: 'glyphicon glyphicon-refresh'
         },
+        excluded: [':disabled'],
         fields: {
             addLabNo: {
                 validators: {
@@ -103,6 +107,7 @@ $(document).ready(function() {
             invalid: 'glyphicon glyphicon-remove',
             validating: 'glyphicon glyphicon-refresh'
         },
+        excluded: [':disabled'],
         fields: {
             upinputLabNo: {
                 validators: {
@@ -158,6 +163,7 @@ $(document).ready(function() {
             invalid: 'glyphicon glyphicon-remove',
             validating: 'glyphicon glyphicon-refresh'
         },
+        excluded: [':disabled'],
         fields: {
             collegeInput: {
                 validators: {
@@ -193,6 +199,7 @@ $(document).ready(function() {
             invalid: 'glyphicon glyphicon-remove',
             validating: 'glyphicon glyphicon-refresh'
         },
+        excluded: [':disabled'],
         fields: {
             UseDate: {
                 validators: {
@@ -204,7 +211,24 @@ $(document).ready(function() {
                         message: '此项只可为4位以下的正整数'
                     }
                 }
-            }
+            },
+            UseAim: {}
         }
+    });
+
+    $("#updatePass").on('hide.bs.modal', function () {
+        $("#updatePassForm").bootstrapValidator('resetForm',true);
+    });
+
+    $("#borrowModal").on('hide.bs.modal', function () {
+        $("#borrowForm").bootstrapValidator('resetForm',true);
+    });
+
+    $("#addModal").on('hide.bs.modal', function () {
+        $("#addFacForm").bootstrapValidator('resetForm',true);
+    });
+
+    $("#updateModal").on('hide.bs.modal', function () {
+        $("#updateFacForm").bootstrapValidator('resetForm',true);
     });
 });

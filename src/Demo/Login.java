@@ -1,12 +1,14 @@
 package Demo;
 
 import Bean.LoginBean;
+import Util.CreateMD5;
 import Util.Jdbc;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 
 /**
  * Created by Administrator on 2017/2/9.
@@ -78,6 +80,6 @@ public class Login {
     }
 
     private boolean cmp() {
-        return loginBean.getUsername().equals(loginBean.getPassword());
+        return Objects.equals(CreateMD5.getMd5(loginBean.getUsername()), loginBean.getPassword());
     }
 }
