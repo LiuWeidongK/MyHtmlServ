@@ -2,6 +2,7 @@ package Bean;
 
 /**
  * Created by Administrator on 2017/2/9.
+ * 设备信息Json 用于Js构造设备信息和设备信息管理table
  */
 public class FacInfoJsonBean {
     private String LabNo,FacNo,FacName,FacModel,Information;

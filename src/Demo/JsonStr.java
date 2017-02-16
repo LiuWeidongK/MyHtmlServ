@@ -14,6 +14,7 @@ import java.util.List;
 
 /**
  * Created by Administrator on 2017/2/9.
+ * 此类主要负责返回Json字符串 帮助Js构造table
  */
 public class JsonStr {
     private int No;

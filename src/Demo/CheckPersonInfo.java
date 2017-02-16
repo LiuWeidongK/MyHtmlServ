@@ -9,6 +9,7 @@ import java.sql.SQLException;
 
 /**
  * Created by Administrator on 2017/2/11.
+ * 检测个人信息是否完整
  */
 public class CheckPersonInfo {
     private String username;

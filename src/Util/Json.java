@@ -2,6 +2,7 @@ package Util;
 
 /**
  * Created by Administrator on 2017/2/2.
+ * 实体类转Json字符串 或 Json字符串转实体类
  */
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;

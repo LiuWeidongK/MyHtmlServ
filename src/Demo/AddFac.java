@@ -10,6 +10,7 @@ import java.sql.SQLException;
 
 /**
  * Created by Administrator on 2017/2/5.
+ * 添加设备 主要实现部分
  */
 public class AddFac {
     private AddFacBean addFacBean;

@@ -8,6 +8,7 @@ import java.sql.SQLException;
 
 /**
  * Created by Administrator on 2017/2/8.
+ * 删除设备 主要实现部分
  */
 public class Delete {
     private String facId;

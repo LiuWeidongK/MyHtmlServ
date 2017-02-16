@@ -12,6 +12,7 @@ import java.io.PrintWriter;
 
 /**
  * Created by Administrator on 2017/2/8.
+ * 单体删除 Servlet
  */
 @WebServlet(name = "DeleteServlet")
 public class DeleteServlet extends HttpServlet {

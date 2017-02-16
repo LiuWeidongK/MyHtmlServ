@@ -16,6 +16,7 @@ import java.util.Date;
 
 /**
  * Created by Administrator on 2017/2/6.
+ * 借用设备 Servlet
  */
 @WebServlet(name = "BorrowServlet")
 public class BorrowServlet extends HttpServlet {

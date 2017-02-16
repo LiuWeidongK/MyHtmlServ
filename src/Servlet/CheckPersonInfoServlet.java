@@ -13,6 +13,7 @@ import java.io.PrintWriter;
 
 /**
  * Created by Administrator on 2017/2/11.
+ * 判断个人信息是否完整 Servlet
  */
 @WebServlet(name = "CheckPersonInfoServlet")
 public class CheckPersonInfoServlet extends HttpServlet {

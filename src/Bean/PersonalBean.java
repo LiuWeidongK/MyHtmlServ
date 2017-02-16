@@ -2,6 +2,7 @@ package Bean;
 
 /**
  * Created by Administrator on 2017/2/5.
+ * 个人信息
  */
 public class PersonalBean {
     private String username,college,name,telphone;

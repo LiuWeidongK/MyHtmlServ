@@ -17,6 +17,7 @@ import java.util.List;
 
 /**
  * Created by Administrator on 2017/2/11.
+ * 批量删除 Servlet
  */
 @WebServlet(name = "DeleteAllServlet")
 public class DeleteAllServlet extends HttpServlet {

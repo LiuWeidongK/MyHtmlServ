@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 /**
  * Created by Administrator on 2017/2/6.
+ * 查询信息工具类
  */
 public class SelectSql {
     String sql;

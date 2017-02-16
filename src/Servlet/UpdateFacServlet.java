@@ -13,6 +13,7 @@ import java.io.PrintWriter;
 
 /**
  * Created by Administrator on 2017/2/7.
+ * 设备更新 Servlet
  */
 @WebServlet(name = "UpdateFacServlet")
 public class UpdateFacServlet extends HttpServlet {

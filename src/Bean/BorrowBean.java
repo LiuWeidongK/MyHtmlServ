@@ -2,6 +2,7 @@ package Bean;
 
 /**
  * Created by Administrator on 2017/2/6.
+ * 借用设备
  */
 public class BorrowBean {
     private int useLong;

@@ -2,6 +2,7 @@ package Bean;
 
 /**
  * Created by Administrator on 2017/2/10.
+ * 借用设备Json 用于Js构造table
  */
 public class BorrowInfoJsonBean {
     private String ids,names,college,sdate,facname,tele,aim;

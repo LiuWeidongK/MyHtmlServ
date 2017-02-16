@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * Created by Administrator on 2017/2/16.
+ * 连接数据库 返回Connection
+ */
 public class Jdbc {
     static final String DRIVER = "com.mysql.jdbc.Driver";
     static final String URL = "jdbc:mysql://localhost:3306/myhtmldb";

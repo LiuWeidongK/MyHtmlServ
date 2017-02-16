@@ -2,6 +2,7 @@ package Servlet;
 
 import Bean.UpdatePassBean;
 import Demo.UpdatePass;
+import Util.CreateMD5;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +15,8 @@ import java.io.PrintWriter;
 
 /**
  * Created by Administrator on 2017/2/3.
+ * 更新密码 Servlet
+ *
  */
 @WebServlet(name = "UpdatePassServlet")
 public class UpdatePassServlet extends HttpServlet {
@@ -26,7 +29,7 @@ public class UpdatePassServlet extends HttpServlet {
         String oldPass = request.getParameter("oldPass");
         String newPass = request.getParameter("newPass");
 
-        UpdatePassBean updatePassBean = new UpdatePassBean(username,oldPass,newPass);
+        UpdatePassBean updatePassBean = new UpdatePassBean(username, CreateMD5.getMd5(oldPass),CreateMD5.getMd5(newPass));
 
         UpdatePass updatePass = new UpdatePass(updatePassBean);
         if(updatePass.checkOldPass()) {

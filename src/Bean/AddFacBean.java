@@ -2,6 +2,7 @@ package Bean;
 
 /**
  * Created by Administrator on 2017/2/5.
+ * 添加设备
  */
 public class AddFacBean {
     private int HaveNum;

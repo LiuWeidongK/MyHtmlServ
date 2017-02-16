@@ -9,6 +9,7 @@ import java.sql.SQLException;
 
 /**
  * Created by Administrator on 2017/2/5.
+ * 个人信息 主要实现部分
  */
 
 public class Personal {

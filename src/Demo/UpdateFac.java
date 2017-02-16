@@ -9,6 +9,7 @@ import java.sql.SQLException;
 
 /**
  * Created by Administrator on 2017/2/7.
+ * 更新设备 主要实现部分
  */
 public class UpdateFac {
     private UpdateFacBean updateFacBean;

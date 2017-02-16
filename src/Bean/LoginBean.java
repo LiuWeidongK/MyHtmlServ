@@ -1,5 +1,9 @@
 package Bean;
 
+/**
+ * Created by Administrator on 2017/2/9.
+ * 登录信息
+ */
 public class LoginBean {
     private String username;
     private String password;

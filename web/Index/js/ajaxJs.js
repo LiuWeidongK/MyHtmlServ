@@ -1,5 +1,6 @@
 /**
  * Created by Administrator on 2017/2/3.
+ * index.jsp页面所有和服务器交互的js代码
  */
 //初始化弹窗样式以及位置
 Messenger.options = {

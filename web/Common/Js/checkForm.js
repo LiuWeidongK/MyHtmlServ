@@ -1,5 +1,6 @@
 /**
  * Created by Administrator on 2017/2/12.
+ * index.jsp表单验证的js代码
  */
 $(document).ready(function() {
     $('#updatePassForm').bootstrapValidator({

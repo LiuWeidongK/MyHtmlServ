@@ -2,6 +2,7 @@ package Bean;
 
 /**
  * Created by Administrator on 2017/2/7.
+ * 更新设备
  */
 public class UpdateFacBean {
     private String labNo,facNo,facName,facMod;

@@ -2,6 +2,7 @@ package Bean;
 
 /**
  * Created by Administrator on 2017/2/3.
+ * 更新密码
  */
 public class UpdatePassBean {
     private String username,oldPass,newPass;

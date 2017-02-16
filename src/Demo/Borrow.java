@@ -9,6 +9,7 @@ import java.sql.SQLException;
 
 /**
  * Created by Administrator on 2017/2/6.
+ * 借用设备 主要实现部分
  */
 public class Borrow {
     private BorrowBean borrowBean;

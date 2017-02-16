@@ -8,6 +8,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Created by Administrator on 2017/2/9.
+ * 登录 主要实现部分
+ */
 public class Login {
     private LoginBean loginBean;
     public Login(LoginBean loginBean) {

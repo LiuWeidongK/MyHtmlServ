@@ -10,6 +10,7 @@ import java.sql.SQLException;
 
 /**
  * Created by Administrator on 2017/2/3.
+ * 更新密码 主要实现部分
  */
 public class UpdatePass {
     private UpdatePassBean updatePassBean;
