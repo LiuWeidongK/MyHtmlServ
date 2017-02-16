@@ -1,11 +1,6 @@
 package Servlet;
 
-import Bean.LoginBean;
 import Demo.JsonStr;
-import Util.Json;
-import com.google.gson.FieldNamingPolicy;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,6 +13,7 @@ import java.io.PrintWriter;
 
 /**
  * Created by Administrator on 2017/2/9.
+ * 返回Json字符串的Servlet
  */
 @WebServlet(name = "JsonServlet")
 public class JsonServlet extends HttpServlet {
