@@ -37,7 +37,7 @@ var facIdd;     //全局变量 设备编号
 $(document).ready(function () {
     $("#uPass").click(function () {
         if($("#newPass").val()==$("#newPassAgain").val()) {
-            var reg = /^[A-Za-z0-9]+$/;
+            var reg = /^[A-Za-z0-9]{6,18}$/;
             if($("#newPass").val().match(reg) == null)
                 Messenger().post({message: '表单格式错误 请正确输入', type: 'error', showCloseButton: true});
             else {
@@ -70,7 +70,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     $("#submitBorrow").click(function () {
         var sign = true;
-        var reg = /^[0-9]+$/;
+        var reg = /^[0-9]{1,4}$/;
         if($("#UseDate").val().trim() == ""||$("#UseDate").val().trim().match(reg) == null)
             sign = false;
         if(sign) {
@@ -100,18 +100,19 @@ $(document).ready(function () {
 $(document).ready(function () {
     $("#submitAdd").click(function () {
         var sign_1 = true,sign_2 = true,sign_3 = true,sign_4 = true,sign_5 = true,sign_6 = true;
-        var reg_1 = /^[a-zA-Z0-9]+$/;
-        var reg_2 = /^[a-zA-Z0-9\u4e00-\u9fa5]+$/;
-        var reg_3 = /^[0-9]+$/;
+        var reg_1 = /^[a-zA-Z0-9]{4,6}$/;
+        var reg_2 = /^[a-zA-Z0-9\u4e00-\u9fa5]{0,16}$/;
+        var reg_3 = /^[a-zA-Z0-9\u4e00-\u9fa5]{0,20}$/;
+        var reg_4 = /^[0-9]{1,6}$/;
         if($("#inputLabNo").val().trim() == ""||$("#inputLabNo").val().trim().match(reg_1) == null)
             sign_1 = false;
         if($("#inputFacNo").val().trim() == ""||$("#inputFacNo").val().trim().match(reg_1) == null)
             sign_2 = false;
         if($("#inputFacName").val().trim() == ""||$("#inputFacName").val().trim().match(reg_2) == null)
             sign_3 = false;
-        if($("#inputFacMod").val().trim() == ""||$("#inputFacMod").val().trim().match(reg_2) == null)
+        if($("#inputFacMod").val().trim() == ""||$("#inputFacMod").val().trim().match(reg_3) == null)
             sign_4 = false;
-        if($("#HavaNum").val().trim() == ""||$("#HavaNum").val().trim().match(reg_3) == null)
+        if($("#HavaNum").val().trim() == ""||$("#HavaNum").val().trim().match(reg_4) == null)
             sign_5 = false;
         if($("#DetaInfo").val().trim() == "")
             sign_6 = false;
@@ -144,13 +145,14 @@ $(document).ready(function () {
 $(document).ready(function () {
     $("#personalBtn").click(function () {
         var sign_1 = true,sign_2 = true,sign_3 = true;
-        var reg_1 = /^[a-zA-Z\u4e00-\u9fa5]+$/;
-        var reg_2 = /^1[34578]\d{9}$/;
+        var reg_1 = /^[a-zA-Z\u4e00-\u9fa5]{0,15}$/;
+        var reg_2 = /^[\u4e00-\u9fa5]{2,10}$/;
+        var reg_3 = /^1[34578]\d{9}$/;
         if($("#collegeInput").val().trim().match(reg_1) == null)
             sign_1 = false;
-        if($("#nameInput").val().trim().match(reg_1) == null)
+        if($("#nameInput").val().trim().match(reg_2) == null)
             sign_2 = false;
-        if($("#telInput").val().trim().match(reg_2) == null)
+        if($("#telInput").val().trim().match(reg_3) == null)
             sign_3 = false;
         if(sign_1&&sign_2&&sign_3) {
             $.ajax({
@@ -199,16 +201,17 @@ function checkInfo() {
 $(document).ready(function () {
     $("#submitUpdateFac").click(function () {
         var sign_1 = true,sign_2 = true,sign_3 = true,sign_4 = true;
-        var reg_1 = /^[a-zA-Z0-9]+$/;
-        var reg_2 = /^[a-zA-Z0-9\u4e00-\u9fa5]+$/;
-        var reg_3 = /^[0-9]+$/;
+        var reg_1 = /^[a-zA-Z0-9]{4,6}$/;
+        var reg_2 = /^[a-zA-Z0-9\u4e00-\u9fa5]{0,16}$/;
+        var reg_3 = /^[a-zA-Z0-9\u4e00-\u9fa5]{0,20}$/;
+        var reg_4 = /^[0-9]{1,6}$/;
         if($("#upinputLabNo").val().trim() == ""||$("#upinputLabNo").val().trim().match(reg_1) == null)
             sign_1 = false;
         if($("#upinputFacName").val().trim() == ""||$("#upinputFacName").val().trim().match(reg_2) == null)
             sign_2 = false;
-        if($("#upinputFacMod").val().trim() == ""||$("#upinputFacMod").val().trim().match(reg_2) == null)
+        if($("#upinputFacMod").val().trim() == ""||$("#upinputFacMod").val().trim().match(reg_3) == null)
             sign_3 = false;
-        if($("#upStock").val().trim() == ""||$("#upStock").val().trim().match(reg_3) == null)
+        if($("#upStock").val().trim() == ""||$("#upStock").val().trim().match(reg_4) == null)
             sign_4 = false;
         if(sign_1&&sign_2&&sign_3&&sign_4) {
             $.ajax({

@@ -16,8 +16,8 @@ $(document).ready(function() {
                         message: '此项不可为空'
                     },
                     regexp: {
-                        regexp: /^[A-Za-z0-9]+$/,
-                        message: '格式错误 密码只能包括字母和数字'
+                        regexp: /^[A-Za-z0-9]{6,18}$/,
+                        message: '格式错误 密码只能包括字母和数字 长度为6-18个字符'
                     }
                 }
             }
@@ -37,8 +37,8 @@ $(document).ready(function() {
                         message: '此项不可为空'
                     },
                     regexp: {
-                        regexp: /^[a-zA-Z0-9]+$/,
-                        message: '此项不可包括特殊字符或汉字'
+                        regexp: /^[a-zA-Z0-9]{4,6}$/,
+                        message: '此项不可包括特殊字符或汉字 长度为4-6个字符'
                     }
                 }
             },
@@ -48,8 +48,8 @@ $(document).ready(function() {
                         message: '此项不可为空'
                     },
                     regexp: {
-                        regexp: /^[a-zA-Z0-9]+$/,
-                        message: '此项不可包括特殊字符或汉字'
+                        regexp: /^[a-zA-Z0-9]{4,6}$/,
+                        message: '此项不可包括特殊字符或汉字 长度为4-6个字符'
                     }
                 }
             },
@@ -59,8 +59,8 @@ $(document).ready(function() {
                         message: '此项不可为空'
                     },
                     regexp: {
-                        regexp: /^[a-zA-Z0-9\u4e00-\u9fa5]+$/,
-                        message: '此项不可包括特殊字符'
+                        regexp: /^[a-zA-Z0-9\u4e00-\u9fa5]{0,16}$/,
+                        message: '此项不可包括特殊字符 长度为16个字符以下'
                     }
                 }
             },
@@ -70,8 +70,8 @@ $(document).ready(function() {
                         message: '此项不可为空'
                     },
                     regexp: {
-                        regexp: /^[a-zA-Z0-9\u4e00-\u9fa5]+$/,
-                        message: '此项不可包括特殊字符'
+                        regexp: /^[a-zA-Z0-9\u4e00-\u9fa5]{0,20}$/,
+                        message: '此项不可包括特殊字符 长度为20个字符以下'
                     }
                 }
             },
@@ -81,8 +81,8 @@ $(document).ready(function() {
                         message: '此项不可为空'
                     },
                     regexp: {
-                        regexp: /^[0-9]+$/,
-                        message: '此项只可为正整数'
+                        regexp: /^[0-9]{1,6}$/,
+                        message: '此项只可为6位以下的正整数'
                     }
                 }
             },
@@ -109,8 +109,8 @@ $(document).ready(function() {
                         message: '此项不可为空'
                     },
                     regexp: {
-                        regexp: /^[a-zA-Z0-9]+$/,
-                        message: '此项不可包括特殊字符或汉字'
+                        regexp: /^[a-zA-Z0-9]{4,6}$/,
+                        message: '此项不可包括特殊字符或汉字 长度为4-6个字符'
                     }
                 }
             },
@@ -120,8 +120,8 @@ $(document).ready(function() {
                         message: '此项不可为空'
                     },
                     regexp: {
-                        regexp: /^[a-zA-Z0-9\u4e00-\u9fa5]+$/,
-                        message: '此项不可包括特殊字符'
+                        regexp: /^[a-zA-Z0-9\u4e00-\u9fa5]{0,16}$/,
+                        message: '此项不可包括特殊字符 长度为16个字符以下'
                     }
                 }
             },
@@ -131,8 +131,8 @@ $(document).ready(function() {
                         message: '此项不可为空'
                     },
                     regexp: {
-                        regexp: /^[a-zA-Z0-9\u4e00-\u9fa5]+$/,
-                        message: '此项不可包括特殊字符'
+                        regexp: /^[a-zA-Z0-9\u4e00-\u9fa5]{0,20}$/,
+                        message: '此项不可包括特殊字符 长度为20个字符以下'
                     }
                 }
             },
@@ -142,13 +142,14 @@ $(document).ready(function() {
                         message: '此项不可为空'
                     },
                     regexp: {
-                        regexp: /^[0-9]+$/,
-                        message: '此项只可为正整数'
+                        regexp: /^[0-9]{1,6}$/,
+                        message: '此项只可为6位以下的正整数'
                     }
                 }
             }
         }
     });
+
     $('#personalForm').bootstrapValidator({
         message: 'This value is not valid',
         feedbackIcons: {
@@ -160,16 +161,16 @@ $(document).ready(function() {
             collegeInput: {
                 validators: {
                     regexp: {
-                        regexp: /^[a-zA-Z\u4e00-\u9fa5]+$/,
-                        message: '此项不可包括特殊字符'
+                        regexp: /^[a-zA-Z\u4e00-\u9fa5]{0,15}$/,
+                        message: '此项不可包括特殊字符 长度为15个字符以下'
                     }
                 }
             },
             nameInput: {
                 validators: {
                     regexp: {
-                        regexp: /^[a-zA-Z\u4e00-\u9fa5]+$/,
-                        message: '此项不可包括特殊字符'
+                        regexp: /^[\u4e00-\u9fa5]{2,10}$/,
+                        message: '此项不可包括特殊字符 长度为2-10个字符'
                     }
                 }
             },
@@ -183,6 +184,7 @@ $(document).ready(function() {
             }
         }
     });
+
     $('#borrowForm').bootstrapValidator({
         message: 'This value is not valid',
         feedbackIcons: {
@@ -197,8 +199,8 @@ $(document).ready(function() {
                         message: '此项不可为空'
                     },
                     regexp: {
-                        regexp: /^[0-9]+$/,
-                        message: '此项只可为正整数'
+                        regexp: /^[0-9]{1,4}$/,
+                        message: '此项只可为4位以下的正整数'
                     }
                 }
             }

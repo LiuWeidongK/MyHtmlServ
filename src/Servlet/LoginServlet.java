@@ -18,6 +18,7 @@ public class LoginServlet extends javax.servlet.http.HttpServlet {
         Login login = new Login(loginBean);
         if(login.select()) {
             request.getSession().setAttribute("username",username);
+            request.getSession().setMaxInactiveInterval(60*60);
             out.write("true");
         } else {
             out.write("false");

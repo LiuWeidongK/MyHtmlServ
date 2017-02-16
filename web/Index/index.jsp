@@ -28,25 +28,7 @@
     <script type="text/javascript" src="js/jquery.tablesorter.js"></script>    <!-- Table Sort -->
     <script type="text/javascript" src="js/indexJs.js"></script>   <!-- Own Code -->
     <script type="text/javascript" src="js/ajaxJs.js"></script>
-    <script type="text/javascript" src="../Common/Js/checkForm.js"></script>
-
-    <!--
-        问题概述：
-            1.表单验证基本实现  数据长度暂未验证
-            2.重要数据传递时应进行加密处理
-            3.个人信息完善不显示提示   不重要 可不显示
-            4.表单不能重置
-            5.ie模式下input的默认字段属性不能显示
-                                            ——更新于 2017/2/13 20:37
-
-            --3.若可使用本地缓存保存数据 可减少客户端与服务器的交互 暂不解决
-            --4.暂时刷新（刷新一次就需要向服务器发送一次请求）只有四种情况：页面加载、手动点击按钮、数据提交成功、div切换
-
-            //1.批量删除暂已实现
-            //2.个人信息不全不予以借用未实现
-            //3.拼接html代码的时候 详细信息不弹出 排序函数无法实现 表格信息无法获取 已解决
-            //4.详细信息弹框会出现不能消失的问题 未解决
-    -->
+    <script type="text/javascript" src="../Common/Js/checkForm.js"></script>    <!-- checkForm Code -->
 </head>
 
 <body onload="displayTime()">
@@ -62,15 +44,18 @@
             </button>
             <a class="navbar-brand" href="#">实验室器材管理系统</a>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
+        <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li><a id="Date"></a></li>
                 <li>
                     <a href="#" class="dropdown-toggle" id="user" data-toggle="dropdown">
                         <%
-                            session.setMaxInactiveInterval(3600);
                             String username = (String)session.getAttribute("username");
-                            out.write(username);
+                            if(username==null) {
+                                response.sendRedirect("../Common/Web/alertJump.html");
+                            } else {
+                                out.write(username);
+                            }
                         %>
                         <span class="caret"></span>
                     </a>
@@ -87,7 +72,7 @@
 <div class="container-fluid">
     <div class="row">
         <!-- Left-List-->
-        <div class="col-sm-3 col-md-2 sidebar">
+        <div id="navbar" class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar" id="leftlist">
                 <li class="active"><a href="#">设备状态信息</a></li>
                 <li><a href="#">设备信息管理</a></li>
