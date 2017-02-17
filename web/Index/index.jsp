@@ -47,12 +47,13 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li><a id="Date"></a></li>
+                <li><a id="userType"></a></li>
                 <li>
                     <a href="#" class="dropdown-toggle" id="user" data-toggle="dropdown">
                         <%
                             String username = (String)session.getAttribute("username");
                             if(username==null) {
-                                response.sendRedirect("../Common/Web/alertJump.html");
+                                response.sendRedirect("../Common/Others/alertJump.html");
                             } else {
                                 out.write(username);
                             }
@@ -61,6 +62,7 @@
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="#" data-toggle="modal" data-target="#updatePass"><span class="glyphicon glyphicon-pencil"></span> 修改密码</a></li>
+                        <li id="LiManage"><a href="#" id="toManage"><span class="glyphicon glyphicon-user"></span> 成为管理</a></li>
                         <li><a id="sOut" href="#" data-toggle="modal" data-target="#signoutModal"><span class="glyphicon glyphicon-off"></span> 退出登录</a></li>
                     </ul>
                 </li>
@@ -75,9 +77,9 @@
         <div id="navbar" class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar" id="leftlist">
                 <li class="active"><a href="#">设备状态信息</a></li>
-                <li><a href="#">设备信息管理</a></li>
+                <li id="LiFacManage"><a href="#">设备信息管理</a></li>
                 <li><a href="#">设备借用信息</a></li>
-                <li><a href="#">个人信息 <span class="badge" id="tips">1</span></a></li>
+                <li><a href="#">个人信息 <span class="badge" id="tips"></span></a></li>
             </ul>
         </div>
 
@@ -215,7 +217,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-5">
-                            <button id="personalBtn" type="button" class="btn btn-primary" style="float:right">提交</button>
+                            <button id="personalBtn" type="submit" class="btn btn-primary" style="float:right">提交</button>
                         </div>
                     </div>
                 </form>
@@ -255,7 +257,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button id="uPass" type="button" class="btn btn-primary">提交</button>
+                <button id="uPass" type="submit" class="btn btn-primary">提交</button>
             </div>
         </div>
     </div>
@@ -271,8 +273,8 @@
             </div>
             <div class="modal-body">确定要退出么?</div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
-                <button id="realOut" type="button" class="btn btn-default">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button id="realOut" type="button" class="btn btn-primary">确定</button>
             </div>
         </div>
     </div>
@@ -345,7 +347,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button id="submitBorrow" type="button" class="btn btn-primary">提交</button>
+                <button id="submitBorrow" type="submit" class="btn btn-primary">提交</button>
             </div>
         </div>
     </div>
@@ -402,7 +404,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button id="submitAdd" type="button" class="btn btn-primary">提交</button>
+                <button id="submitAdd" type="submit" class="btn btn-primary">提交</button>
             </div>
         </div>
     </div>
@@ -451,7 +453,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button id="submitUpdateFac" type="button" class="btn btn-primary">提交</button>
+                <button id="submitUpdateFac" type="submit" class="btn btn-primary">提交</button>
             </div>
         </div>
     </div>
@@ -467,8 +469,8 @@
             </div>
             <div class="modal-body">删除此条信息后会导致相应的借用记录也随之删除,数据不可恢复,你确定要删除么?</div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
-                <button type="button" id="sureDelete" class="btn btn-default">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" id="sureDelete" class="btn btn-primary">确定</button>
             </div>
         </div>
     </div>
@@ -484,8 +486,39 @@
             </div>
             <div id="deleteAlert" class="modal-body"></div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-default" id="sureDeleteAll" >确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="sureDeleteAll" >确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 成为管理Modal -->
+<div class="modal fade bs-example-modal-sm" id="toManageModal" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">成为管理员</h4>
+            </div>
+            <div class="modal-body">
+                <form id="toManageForm" class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="keys" class="col-sm-3 control-label">邀请码</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="keys" name="keys" placeholder="16位大写字母和数字组成"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="checkNum" class="col-sm-3 control-label" id="captchaOperation"></label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="checkNum" name="checkNum" placeholder="验证码"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="toManageSubmit" type="submit" class="btn btn-primary">提交</button>
             </div>
         </div>
     </div>

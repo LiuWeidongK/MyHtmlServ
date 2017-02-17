@@ -79,3 +79,24 @@ th.pointer{
 #content2,#content3,#content4{
 	display:none;
 }
+
+.badge:empty {
+	display: none;
+}
+
+.badge {
+	background-color: #D9534F;
+}
+
+.disabled {
+	pointer-events:none;
+}
+
+#user {
+	padding-left: 4px;
+}
+
+#userType {
+	padding-right: 4px;
+	font-family:微软雅黑;
+}

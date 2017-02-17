@@ -257,3 +257,8 @@ form:after {
     background-position: 0 -135px;
     color: rgba(239, 0, 0, 0.75);
 }
+
+#content form input[type="radio"] {
+    margin-top: 30px;
+    margin-left: 15px;
+}

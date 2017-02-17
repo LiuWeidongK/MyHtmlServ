@@ -45,13 +45,14 @@ public class Login {
 
     private boolean insert_login() {
         Connection conn = Jdbc.getConn();
-        String sql = "INSERT INTO LOGIN (USERNAME,PASSWORD,COMPLETE) VALUES(?,?,?)";
+        String sql = "INSERT INTO LOGIN (USERNAME,PASSWORD,COMPLETE,USERTYPE) VALUES(?,?,?,?)";
         PreparedStatement pstmt;
         try {
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, loginBean.getUsername());
             pstmt.setString(2, loginBean.getPassword());
             pstmt.setBoolean(3, false);
+            pstmt.setBoolean(4,false);
             pstmt.executeUpdate();
             pstmt.close();
             conn.close();

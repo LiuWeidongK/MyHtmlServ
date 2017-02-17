@@ -110,7 +110,7 @@ function displayTime(){
     var minutes = date.getMinutes();
     var seconds = date.getSeconds();
     document.getElementById("Date").innerHTML = year + "/" + fix(month,2) + "/" + fix(day,2) + " " + fix(hour,2) + ":" + fix(minutes,2) + ":" + fix(seconds,2);
-    var myTime=setTimeout("displayTime()",1000);
+    var myTime = setTimeout("displayTime()",1000);
 }
 
 //checkbox全选与全不选
@@ -219,3 +219,10 @@ $(document).ready(function(){
     });
 });
 
+//生成验证码
+$(document).ready(function () {
+    function randomNumber(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+    $('#captchaOperation').html([randomNumber(1, 100), '+', randomNumber(1, 100), '='].join(' '));
+});

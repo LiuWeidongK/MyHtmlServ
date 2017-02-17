@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Super Manager</title>
+    <link rel="icon" href="../Resource/ico.jpg">
+    <link href="/Index/css/bootstrap.min.css" rel="stylesheet">    <!-- Bootstrap Code -->
+    <script type="text/javascript" src="/Index/js/jquery-3.0.0.js"></script>	    <!-- Jquery -->
+    <script type="text/javascript" src="/Index/js/bootstrap.min.js"></script>     <!-- Bootstrap Code-->
+
+    <style type="text/css">
+        .div {
+            margin-left: 60px;
+            float: left;
+        }
+
+        ul {
+            width: 330px;
+        }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#submitToCreate").click(function () {
+                $.post('/createKeyServlet', {
+                    creatNum : $("#creatNum").val()
+                }, function(data) {
+                    var jsonObj = eval( "(" + data + ")" );
+                    var content ="";
+                    $.each(jsonObj, function (index,obj) {
+                        content += "<li class=\"list-group-item\">" + obj.keyValue + "</li>";
+                    });
+                    $("#ulCreate").html(content);
+
+                })
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="div">
+        <h1>生成邀请码</h1><br/>
+        <form class="form-inline" id="creatForm">
+            <div class="form-group">
+                <label for="creatNum">输入数量</label>
+                <input type="text" class="form-control" id="creatNum" name="creatNum"/>
+            </div>
+            <button type="button" class="btn btn-default" id="submitToCreate">确定</button>
+        </form><br/>
+        <ul class="list-group" id="ulCreate"></ul>
+    </div>
+    <div class="div">
+        <h1>查看邀请码</h1><br/>
+        <button type="button" class="btn btn-default" id="fresh">Refresh</button><br/>
+        <ul class="list-group" id="ulSelect"></ul>
+    </div>
+    <div class="div">
+        <h1>检测邀请码</h1><br/>
+        <form class="form-inline" id="checkForm">
+            <div class="form-group">
+                <label for="keyNum">输入邀请码</label>
+                <input type="text" class="form-control" id="keyNum" name="keyNum"/>
+            </div>
+            <button type="button" class="btn btn-default" id="submitToCheck">确定</button>
+        </form>
+        <br/>
+        <ul class="list-group" id="ulCheck"></ul>
+    </div>
+</body>
+</html>

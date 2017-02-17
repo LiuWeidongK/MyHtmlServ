@@ -29,6 +29,16 @@
             <h1>请登录</h1>
             <input type="text" placeholder="Username" required="" id="username" name="username"/>
             <input type="password" placeholder="Password" required="" id="password" name="password"/>
+            <!--
+            <label>
+                <input type="radio" name="choose" value="ordinary" checked>
+                普通用户
+            </label>
+            <label>
+                <input type="radio" name="choose" value="manager">
+                管理员
+            </label>
+            -->
             <button type="button" value="submit">登录</button>
         </form>
         <div class="tips">

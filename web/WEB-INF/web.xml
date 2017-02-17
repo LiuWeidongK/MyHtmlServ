@@ -92,4 +92,31 @@
         <servlet-name>DeleteAllServlet</servlet-name>
         <url-pattern>/deleteAllServlet</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UserTypeServlet</servlet-name>
+        <servlet-class>Servlet.UserTypeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserTypeServlet</servlet-name>
+        <url-pattern>/userTypeServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>KeyNumberServlet</servlet-name>
+        <servlet-class>Servlet.KeyNumberServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>KeyNumberServlet</servlet-name>
+        <url-pattern>/keyNumberServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CreateKeyServlet</servlet-name>
+        <servlet-class>Servlet.CreateKeyServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CreateKeyServlet</servlet-name>
+        <url-pattern>/createKeyServlet</url-pattern>
+    </servlet-mapping>
 </web-app>

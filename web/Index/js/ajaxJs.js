@@ -15,6 +15,43 @@ $(document).ready(function () {
     });
 });
 
+//置空
+function checkNull(str) {
+    if(typeof (str) == "undefined")
+        return "";
+    else return str;
+}
+
+//显示个人信息补全提示
+$(document).ready(function () {
+    $.ajax({
+        type: "POST",
+        url: "/checkPersonInfoServlet",
+        success: function(data) {
+            if(data=="fail"){
+                $("#tips").text("1");
+            }
+        }
+    });
+});
+
+//管理员与普通用户
+$(document).ready(function () {
+    $.ajax({
+        type: "POST",
+        url: "/userTypeServlet",
+        success: function(data) {
+            if(data=="manager") {                  //管理员
+                $("#LiManage").addClass("hide");
+                $("#userType").text("管理员");
+            } else if(data=="ordinary") {        //普通用户
+                $("#LiFacManage").addClass("disabled");
+                $("#userType").text("普通用户");
+            }
+        }
+    });
+});
+
 //刷新Div
 $(document).ready(function () {
     refresh_1();
@@ -36,12 +73,12 @@ var facIdd;     //全局变量 设备编号
 
 //修改密码ajax
 $(document).ready(function () {
+    $("#updatePassForm").submit(function(ev){ev.preventDefault();});
     $("#uPass").click(function () {
         if($("#newPass").val()==$("#newPassAgain").val()) {
-            var reg = /^[A-Za-z0-9]{6,18}$/;
-            if($("#newPass").val().match(reg) == null)
-                Messenger().post({message: '表单格式错误 请正确输入', type: 'error', showCloseButton: true});
-            else {
+            var bootstrapValidator = $("#updatePassForm").data('bootstrapValidator');
+            bootstrapValidator.validate();
+            if(bootstrapValidator.isValid()) {
                 $.ajax({
                     type: "POST",
                     url: "/updatePassServlet",
@@ -61,20 +98,24 @@ $(document).ready(function () {
                     }
                 });
             }
+            else {
+                Messenger().post({message: '表单格式错误 请正确输入', type: 'error', showCloseButton: true});
+                //return ;
+            }
         } else {
             Messenger().post({message: '两次密码输入不符 请重试', type: 'error', showCloseButton: true});
         }
     });
 });
 
+
 //借用设备ajax
 $(document).ready(function () {
-    $("#submitBorrow").click(function () {
-        var sign = true;
-        var reg = /^[0-9]{1,4}$/;
-        if($("#UseDate").val().trim() == ""||$("#UseDate").val().trim().match(reg) == null)
-            sign = false;
-        if(sign) {
+    $("#borrowForm").submit(function(ev){ev.preventDefault();});
+    $("#submitBorrow").on("click", function(){
+        var bootstrapValidator = $("#borrowForm").data('bootstrapValidator');
+        bootstrapValidator.validate();
+        if(bootstrapValidator.isValid()) {
             $.ajax({
                 type: "POST",
                 url: "/borrowServlet",
@@ -92,32 +133,21 @@ $(document).ready(function () {
                         Messenger().post({message: '未知错误', type: 'error', showCloseButton: true});
                 }
             });
-        } else
+        }
+        else {
             Messenger().post({message: '表单格式错误 请正确输入', type: 'error', showCloseButton: true});
+            //return ;
+        }
     });
 });
 
 //添加设备ajax
 $(document).ready(function () {
-    $("#submitAdd").click(function () {
-        var sign_1 = true,sign_2 = true,sign_3 = true,sign_4 = true,sign_5 = true,sign_6 = true;
-        var reg_1 = /^[a-zA-Z0-9]{4,6}$/;
-        var reg_2 = /^[a-zA-Z0-9\u4e00-\u9fa5]{0,16}$/;
-        var reg_3 = /^[a-zA-Z0-9\u4e00-\u9fa5]{0,20}$/;
-        var reg_4 = /^[0-9]{1,6}$/;
-        if($("#inputLabNo").val().trim() == ""||$("#inputLabNo").val().trim().match(reg_1) == null)
-            sign_1 = false;
-        if($("#inputFacNo").val().trim() == ""||$("#inputFacNo").val().trim().match(reg_1) == null)
-            sign_2 = false;
-        if($("#inputFacName").val().trim() == ""||$("#inputFacName").val().trim().match(reg_2) == null)
-            sign_3 = false;
-        if($("#inputFacMod").val().trim() == ""||$("#inputFacMod").val().trim().match(reg_3) == null)
-            sign_4 = false;
-        if($("#HavaNum").val().trim() == ""||$("#HavaNum").val().trim().match(reg_4) == null)
-            sign_5 = false;
-        if($("#DetaInfo").val().trim() == "")
-            sign_6 = false;
-        if(sign_1&&sign_2&&sign_3&&sign_4&&sign_5&&sign_6) {
+    $("#addFacForm").submit(function(ev){ev.preventDefault();});
+    $("#submitAdd").on("click", function(){
+        var bootstrapValidator = $("#addFacForm").data('bootstrapValidator');
+        bootstrapValidator.validate();
+        if(bootstrapValidator.isValid()) {
             $.ajax({
                 type: "POST",
                 url: "/addFacServlet",
@@ -137,25 +167,21 @@ $(document).ready(function () {
                         Messenger().post({message: '未知错误', type: 'error', showCloseButton: true});
                 }
             });
-        } else
+        }
+        else {
             Messenger().post({message: '表单格式错误 请正确输入', type: 'error', showCloseButton: true});
+            //return ;
+        }
     });
 });
 
 //个人信息ajax
 $(document).ready(function () {
-    $("#personalBtn").click(function () {
-        var sign_1 = true,sign_2 = true,sign_3 = true;
-        var reg_1 = /^[a-zA-Z\u4e00-\u9fa5]{0,15}$/;
-        var reg_2 = /^[\u4e00-\u9fa5]{2,10}$/;
-        var reg_3 = /^1[34578]\d{9}$/;
-        if($("#collegeInput").val().trim().match(reg_1) == null)
-            sign_1 = false;
-        if($("#nameInput").val().trim().match(reg_2) == null)
-            sign_2 = false;
-        if($("#telInput").val().trim().match(reg_3) == null)
-            sign_3 = false;
-        if(sign_1&&sign_2&&sign_3) {
+    $("#personalForm").submit(function(ev){ev.preventDefault();});
+    $("#personalBtn").on("click", function(){
+        var bootstrapValidator = $("#personalForm").data('bootstrapValidator');
+        bootstrapValidator.validate();
+        if(bootstrapValidator.isValid()) {
             $.ajax({
                 type: "POST",
                 url: "/personalServlet",
@@ -164,6 +190,8 @@ $(document).ready(function () {
                 success: function(data) {
                     if(data=="success") {
                         Messenger().post({message: '提交成功', type: 'success', showCloseButton: true});
+                        $("#tips").text("");
+                        $("#personalForm").bootstrapValidator('resetForm',true);
                         refresh_4();
                     }
                     else if(data=="fail")
@@ -172,49 +200,21 @@ $(document).ready(function () {
                         Messenger().post({message: '未知错误', type: 'error', showCloseButton: true});
                 }
             });
-        } else
+        }
+        else {
             Messenger().post({message: '表单格式错误 请正确输入', type: 'error', showCloseButton: true});
+            //return ;
+        }
     });
 });
 
-//判断个人信息
-function checkInfo() {
-    $("[name='borrowBtn']").click(function () {
-        $.ajax({
-            type: "POST",
-            url: "/checkPersonInfoServlet",
-            success: function(data) {
-                if(data=="success"){
-                    $("#borrowModal").modal('show');
-                }
-                else if(data=="fail") {
-                    Messenger().post({message: '请先补全个人信息 之后才能执行此操作', type: 'error', showCloseButton: true});
-                }
-                else {
-                    Messenger().post({message: '未知错误', type: 'error', showCloseButton: true});
-                }
-            }
-        });
-    });
-}
-
 //修改设备ajax
 $(document).ready(function () {
-    $("#submitUpdateFac").click(function () {
-        var sign_1 = true,sign_2 = true,sign_3 = true,sign_4 = true;
-        var reg_1 = /^[a-zA-Z0-9]{4,6}$/;
-        var reg_2 = /^[a-zA-Z0-9\u4e00-\u9fa5]{0,16}$/;
-        var reg_3 = /^[a-zA-Z0-9\u4e00-\u9fa5]{0,20}$/;
-        var reg_4 = /^[0-9]{1,6}$/;
-        if($("#upinputLabNo").val().trim() == ""||$("#upinputLabNo").val().trim().match(reg_1) == null)
-            sign_1 = false;
-        if($("#upinputFacName").val().trim() == ""||$("#upinputFacName").val().trim().match(reg_2) == null)
-            sign_2 = false;
-        if($("#upinputFacMod").val().trim() == ""||$("#upinputFacMod").val().trim().match(reg_3) == null)
-            sign_3 = false;
-        if($("#upStock").val().trim() == ""||$("#upStock").val().trim().match(reg_4) == null)
-            sign_4 = false;
-        if(sign_1&&sign_2&&sign_3&&sign_4) {
+    $("#updateFacForm").submit(function(ev){ev.preventDefault();});
+    $("#submitUpdateFac").on("click", function(){
+        var bootstrapValidator = $("#updateFacForm").data('bootstrapValidator');
+        bootstrapValidator.validate();
+        if(bootstrapValidator.isValid()) {
             $.ajax({
                 type: "POST",
                 url: "/updateFacServlet",
@@ -232,8 +232,43 @@ $(document).ready(function () {
                         Messenger().post({message: '未知错误', type: 'error', showCloseButton: true});
                 }
             });
-        } else
+        }
+        else {
             Messenger().post({message: '表单格式错误 请正确输入', type: 'error', showCloseButton: true});
+            //return ;
+        }
+    });
+});
+
+//成为管理员表单验证
+$(document).ready(function () {
+    $("#toManageForm").submit(function(ev){ev.preventDefault();});
+    $("#toManageSubmit").on("click", function(){
+        var bootstrapValidator = $("#toManageForm").data('bootstrapValidator');
+        bootstrapValidator.validate();
+        if(bootstrapValidator.isValid()) {
+            $.ajax({
+                type: "POST",
+                url: "/keyNumberServlet",
+                dataType: "text",
+                data: $("#toManageForm").serialize(),
+                success: function(data) {
+                    if(data=="success"){
+                        //Messenger().post({message: '操作成功 您已成为管理员', type: 'success', showCloseButton: true});
+                        $("#toManageModal").modal('hide');
+                        window.location.reload();
+                    }
+                    else if(data=="fail")
+                        Messenger().post({message: '操作失败 请检查邀请码是否正确', type: 'error', showCloseButton: true});
+                    else
+                        Messenger().post({message: '未知错误', type: 'error', showCloseButton: true});
+                }
+            });
+        }
+        else {
+            Messenger().post({message: '表单格式错误 请正确输入', type: 'error', showCloseButton: true});
+            //return ;
+        }
     });
 });
 
@@ -259,6 +294,80 @@ $(document).ready(function () {
         });
     });
 });
+
+//批量删除
+$(document).ready(function () {
+    $("[data-target='#deleteAllModal']").click(function () {
+        var checkedNum = $("input[name='followBox']:checked").length;
+        if (checkedNum == 0) {
+            Messenger().post({message: '请至少选择一条信息', type: 'error', showCloseButton: true});
+        } else {
+            $("#deleteAlert").text("删除信息后会导致相应的借用记录也随之删除,数据不可恢复,你确定要删除这" + checkedNum + "条信息么?");
+            var checkedList = new Array();
+            $("input[name='followBox']:checked").each(function () {
+                checkedList.push($(this).parents("tr").find("td").eq(2).text().trim());
+            });
+
+            $("#sureDeleteAll").click(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "/deleteAllServlet",
+                    dataType: "text",
+                    data: {facList: checkedList.toString()},
+                    success: function (data) {
+                        if (data == "success") {
+                            Messenger().post({message: '批量删除成功', type: 'success', showCloseButton: true});
+                            $("#deleteAllModal").modal('hide');
+                            refresh_2();
+                        }
+                        else if (data == "fail")
+                            Messenger().post({message: '删除失败 请重试', type: 'error', showCloseButton: true});
+                        else
+                            Messenger().post({message: '未知错误', type: 'error', showCloseButton: true});
+                    }
+                });
+            });
+        }
+    });
+});
+
+//判断个人信息
+function checkInfo() {
+    $("[name='borrowBtn']").click(function () {
+        $.ajax({
+            type: "POST",
+            url: "/checkPersonInfoServlet",
+            success: function(data) {
+                if(data=="success"){
+                    $("#borrowModal").modal('show');
+                }
+                else if(data=="fail") {
+                    Messenger().post({message: '请先补全个人信息 之后才能执行此操作', type: 'error', showCloseButton: true});
+                }
+                else {
+                    Messenger().post({message: '未知错误', type: 'error', showCloseButton: true});
+                }
+            }
+        });
+    });
+    $("#toManage").click(function () {
+        $.ajax({
+            type: "POST",
+            url: "/checkPersonInfoServlet",
+            success: function(data) {
+                if(data=="success"){
+                    $("#toManageModal").modal('show');
+                }
+                else if(data=="fail") {
+                    Messenger().post({message: '请先补全个人信息 之后才能执行此操作', type: 'error', showCloseButton: true});
+                }
+                else {
+                    Messenger().post({message: '未知错误', type: 'error', showCloseButton: true});
+                }
+            }
+        });
+    });
+}
 
 //获取设备编号
 function deleteFac() {
@@ -379,45 +488,3 @@ function refresh_4() {
         $("#Telenum").val(checkNull(jsonObj.telphone));
     });
 }
-
-function checkNull(str) {
-    if(typeof (str) == "undefined")
-        return "";
-    else return str;
-}
-
-//批量删除
-$(document).ready(function () {
-   $("[data-target='#deleteAllModal']").click(function () {
-       var checkedNum = $("input[name='followBox']:checked").length;
-       if (checkedNum == 0) {
-           Messenger().post({message: '请至少选择一条信息', type: 'error', showCloseButton: true});
-       } else {
-           $("#deleteAlert").text("删除信息后会导致相应的借用记录也随之删除,数据不可恢复,你确定要删除这" + checkedNum + "条信息么?");
-           var checkedList = new Array();
-           $("input[name='followBox']:checked").each(function () {
-               checkedList.push($(this).parents("tr").find("td").eq(2).text().trim());
-           });
-
-           $("#sureDeleteAll").click(function () {
-               $.ajax({
-                   type: "POST",
-                   url: "/deleteAllServlet",
-                   dataType: "text",
-                   data: {facList: checkedList.toString()},
-                   success: function (data) {
-                       if (data == "success") {
-                           Messenger().post({message: '批量删除成功', type: 'success', showCloseButton: true});
-                           $("#deleteAllModal").modal('hide');
-                           refresh_2();
-                       }
-                       else if (data == "fail")
-                           Messenger().post({message: '删除失败 请重试', type: 'error', showCloseButton: true});
-                       else
-                           Messenger().post({message: '未知错误', type: 'error', showCloseButton: true});
-                   }
-               });
-           });
-       }
-   });
-});

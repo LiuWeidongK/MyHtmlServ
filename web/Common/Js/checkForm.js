@@ -216,6 +216,40 @@ $(document).ready(function() {
         }
     });
 
+    $('#toManageForm').bootstrapValidator({
+        message: 'This value is not valid',
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        excluded: [':disabled'],
+        fields: {
+            keys: {
+                validators: {
+                    notEmpty: {
+                        message: '请输入邀请码'
+                    },
+                    regexp: {
+                        regexp: /^[0-9A-Z]{16}$/,
+                        message: '邀请码格式错误'
+                    }
+                }
+            },
+            checkNum: {
+                validators: {
+                    callback: {
+                        message: '答案错误',
+                        callback: function(value, validator) {
+                            var items = $('#captchaOperation').html().split(' '), sum = parseInt(items[0]) + parseInt(items[2]);
+                            return value == sum;
+                        }
+                    }
+                }
+            }
+        }
+    });
+
     $("#updatePass").on('hide.bs.modal', function () {
         $("#updatePassForm").bootstrapValidator('resetForm',true);
     });
@@ -230,5 +264,9 @@ $(document).ready(function() {
 
     $("#updateModal").on('hide.bs.modal', function () {
         $("#updateFacForm").bootstrapValidator('resetForm',true);
+    });
+
+    $("#toManageModal").on('hide.bs.modal', function () {
+        $("#toManageForm").bootstrapValidator('resetForm',true);
     });
 });
