@@ -53,7 +53,7 @@
                         <%
                             String username = (String)session.getAttribute("username");
                             if(username==null) {
-                                response.sendRedirect("../Common/Others/alertJump.html");
+                                response.sendRedirect("../Common/Web/alertJump.html");
                             } else {
                                 out.write(username);
                             }

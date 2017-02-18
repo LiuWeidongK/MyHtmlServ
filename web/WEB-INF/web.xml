@@ -119,4 +119,13 @@
         <servlet-name>CreateKeyServlet</servlet-name>
         <url-pattern>/createKeyServlet</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SuperPasswordServlet</servlet-name>
+        <servlet-class>Servlet.SuperPasswordServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SuperPasswordServlet</servlet-name>
+        <url-pattern>/superPasswordServlet</url-pattern>
+    </servlet-mapping>
 </web-app>

@@ -24,11 +24,27 @@ public class CreateKeyServlet extends HttpServlet {
         response.setContentType("application/text; charset=utf-8");
         PrintWriter out = response.getWriter();
 
-        int keyNumber = Integer.parseInt(request.getParameter("creatNum"));
-
-        String json = CreateKey.getKey(keyNumber);
-
-        out.write(json);
+        String sign = request.getParameter("sign");
+        switch (sign) {
+            case "1": {
+                int keyNumber = Integer.parseInt(request.getParameter("creatNum"));
+                String json = CreateKey.getKey(keyNumber);
+                out.write(json);
+                break;
+            }
+            case "2": {
+                String json = CreateKey.getSqlKey();
+                out.write(json);
+                break;
+            }
+            case "3":
+                String key = request.getParameter("keyNum");
+                boolean f = CreateKey.checkKey(key);
+                if (f) {
+                    out.write("true");
+                } else out.write("false");
+                break;
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

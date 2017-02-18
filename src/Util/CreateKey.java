@@ -1,10 +1,12 @@
 package Util;
 
 import Bean.KeyNumberBean;
+import Demo.KeyNumber;
 
 import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,5 +53,40 @@ public class CreateKey {
             createKey.insertValue(key);
         }
         return Json.ObjectToJson(list);
+    }
+
+    public static String getSqlKey() {
+        List<KeyNumberBean> list = new ArrayList<>();
+        Connection conn = Jdbc.getConn();
+        PreparedStatement pstm;
+        ResultSet rs;
+        String sql = "SELECT *FROM KEYNUMBER WHERE USED = 0";
+        try {
+            pstm = conn.prepareStatement(sql);
+            rs = pstm.executeQuery();
+            while(rs.next()) {
+                KeyNumberBean keyNumberBean = new KeyNumberBean(rs.getString(1));
+                list.add(keyNumberBean);
+            }
+            return Json.ObjectToJson(list);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static boolean checkKey(String key) {
+        Connection conn = Jdbc.getConn();
+        PreparedStatement pstm;
+        ResultSet rs;
+        String sql = "SELECT USED FROM KEYNUMBER WHERE KEYVALUE = '" + key + "'";
+        try {
+            pstm = conn.prepareStatement(sql);
+            rs = pstm.executeQuery();
+            return rs.next() && !rs.getBoolean(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }
