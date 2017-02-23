@@ -297,13 +297,14 @@ $(document).ready(function () {
 
 //批量删除
 $(document).ready(function () {
-    $("[data-target='#deleteAllModal']").click(function () {
+    $("#deleteAllBtn").click(function () {
         var checkedNum = $("input[name='followBox']:checked").length;
         if (checkedNum == 0) {
             Messenger().post({message: '请至少选择一条信息', type: 'error', showCloseButton: true});
         } else {
             $("#deleteAlert").text("删除信息后会导致相应的借用记录也随之删除,数据不可恢复,你确定要删除这" + checkedNum + "条信息么?");
-            var checkedList = new Array();
+            $("#deleteAllModal").modal('show');
+            var checkedList = [];
             $("input[name='followBox']:checked").each(function () {
                 checkedList.push($(this).parents("tr").find("td").eq(2).text().trim());
             });

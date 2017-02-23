@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="resource/ico.ico">
-    <title>实验室器材管理系统</title>
+    <title>实验室器材管理系统-Java</title>
 
     <!-- CssCodeLink Start -->
     <link href="css/bootstrap.min.css" rel="stylesheet">    <!-- Bootstrap Code -->
@@ -130,7 +130,7 @@
                     <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addModal">
                         <span class="glyphicon glyphicon-plus"></span> 添加设备
                     </button>
-                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#deleteAllModal">
+                    <button type="button" class="btn btn-default" id="deleteAllBtn">
                         <span class="glyphicon glyphicon-minus"></span> 批量删除
                     </button>
                     <button type="button" class="btn btn-default" id="refreshBtn2">
